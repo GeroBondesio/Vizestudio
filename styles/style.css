@@ -1,0 +1,471 @@
+
+
+/* 
+  Autor: Gerónimo Bondesio
+  Proyecto: Viz Estudio
+  Preentrega 2 - Coderhouse
+*/
+
+/* -------------------------
+   Variables de color / layout
+   ------------------------- */
+:root {
+  
+  --color-bg: #0a0b16;        /* antes #04040a */
+  --color-bg-alt: #111224;    /* antes #070714 */
+
+  --color-primary: #8b5bff;    /* violeta */
+  --color-blue: #2f6bff;       /* azul frío */
+  --color-turquoise: #26f0d8;  /* turquesa */
+  --color-fuchsia: #ff2a85;    /* fucsia frío */
+
+  --color-text: #f7f7fb;
+  --color-text-muted: #c0c3d4; /* más claro para mejor lectura */
+  --color-border-soft: rgba(183, 175, 175, 0.88);
+
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.6rem;
+
+  --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.6);
+  --transition-fast: 150ms ease-out;
+  --transition-med: 220ms ease;
+}
+
+/* -------------------------
+   Base
+   ------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.bg-body-custom {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(139, 91, 255, 0.2), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(47, 107, 255, 0.14), transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(38, 240, 216, 0.14), transparent 55%),
+    var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Links generales */
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-fuchsia);
+}
+
+/* Imágenes fluidas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -------------------------
+   Navbar / Header
+   ------------------------- */
+
+.bg-navbar-custom {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 11, 26, 0.98),
+    rgba(13, 15, 34, 0.98)
+  );
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.navbar-brand span {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+/* Logo con glow violeta */
+.navbar-brand img {
+  filter: drop-shadow(0 0 10px rgba(139, 91, 255, 0.9));
+}
+
+/* Links del nav */
+.navbar-dark .navbar-nav .nav-link {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+  position: relative;
+  padding-inline: 0.9rem;
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+/* Línea luminosa debajo del link */
+.navbar-dark .navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0.25rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-fuchsia),
+    var(--color-turquoise)
+  );
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover::after,
+.navbar-dark .navbar-nav .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ffffff;
+}
+
+/* Botón hamburguesa */
+.navbar-dark .navbar-toggler {
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-dark .navbar-toggler:focus {
+  box-shadow: 0 0 0 2px rgba(139, 91, 255, 0.6);
+}
+
+/* -------------------------
+   Hero principal
+   ------------------------- */
+
+.hero-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4rem;
+}
+
+/* Badge “Diseño de indumentaria · Estética urbana” */
+.esteticaurbana {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 91, 255, 0.7);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(139, 91, 255, 0.22), transparent 65%),
+    rgba(10, 11, 26, 0.95);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Título principal */
+.hero-section h1 {
+  font-weight: 600;
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  line-height: 1.1;
+}
+
+/* Hacemos que "Viz Estudio" tenga gradiente */
+.hero-section h1::first-line {
+  background: linear-gradient(
+    120deg,
+    var(--color-primary),
+    var(--color-fuchsia),
+    var(--color-turquoise)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.colecciones {
+  max-width: 32rem;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* -------------------------
+   Botones principales (CTA)
+   ------------------------- */
+
+.servicios,
+.trabajemosjuntos {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  border: 1px solid transparent;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-med),
+    background var(--transition-med),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+/* Botón principal violeta/fucsia */
+.servicios {
+  background: radial-gradient(circle at 0 0, var(--color-fuchsia), var(--color-primary));
+  color: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Hover */
+.servicios:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Botón secundario “ghost” */
+.trabajemosjuntos {
+  background: rgba(15, 16, 30, 0.96);
+  border-color: var(--color-border-soft);
+  color: var(--color-text-muted);
+}
+
+/* Hover secundario */
+.trabajemosjuntos:hover {
+  color: var(--color-text);
+  border-color: rgba(47, 107, 255, 0.7);
+  background: radial-gradient(
+    circle at 100% 0%,
+    rgba(47, 107, 255, 0.22),
+    rgba(10, 11, 26, 0.98)
+  );
+  transform: translateY(-1px);
+}
+
+/* -------------------------
+   Imagen del hero
+   ------------------------- */
+
+.hero-image-wrapper {
+  position: relative;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0.25rem;
+  border-radius: 1.6rem;
+  background:
+    conic-gradient(
+      from 180deg,
+      rgba(139, 91, 255, 0.18),
+      rgba(47, 107, 255, 0.2),
+      rgba(38, 240, 216, 0.16),
+      rgba(255, 42, 133, 0.2),
+      rgba(139, 91, 255, 0.18)
+    );
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+/* Glow/sombra interna */
+.hero-image-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.65), transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* La imagen en sí */
+.hero-image {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius-lg) - 0.35rem);
+  object-fit: cover;
+  transform-origin: center;
+  transition: transform 220ms ease-out;
+}
+
+/* Efecto leve al pasar el mouse */
+.hero-image-wrapper:hover .hero-image {
+  transform: scale(1.03);
+}
+
+/* -------------------------
+   Sección “Colecciones destacadas”
+   ------------------------- */
+
+.bg-section-dark {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(139, 91, 255, 0.12), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(47, 107, 255, 0.12), transparent 55%),
+    var(--color-bg-alt);
+  border-top: 1px solid var(--color-border-soft);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.bg-section-dark .text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* Cards de proyectos */
+.card-project {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle at 0 0, rgba(20, 16, 40, 0.9), rgba(18, 24, 52, 0.98));
+  box-shadow: 0 18px 35px rgba(5, 5, 10, 0.9);
+  overflow: hidden;
+  transition:
+    transform var(--transition-med),
+    box-shadow var(--transition-med),
+    border-color var(--transition-fast),
+    background 260ms ease-out;
+}
+
+/* Imagen de la card */
+.card-project .card-img-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Hover con glow turquesa */
+.card-project:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+  border-color: rgba(38, 240, 216, 0.75);
+  background: radial-gradient(circle at 100% 0%, rgba(38, 240, 216, 0.18), rgba(10, 11, 26, 0.98));
+}
+
+/* Título de la card */
+.card-project .card-title {
+  color: var(--color-text);
+}
+
+/* Texto de la card */
+.card-project .card-text {
+  color: var(--color-text-muted);
+}
+
+/* Badge de proyecto */
+.badge-project {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(8, 9, 20, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--color-text-muted);
+}
+
+/* -------------------------
+   Footer
+   ------------------------- */
+
+.bg-footer-custom {
+  background: #080819;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.bg-footer-custom .text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+.bg-footer-custom a {
+  color: var(--color-text-muted);
+}
+
+.bg-footer-custom a:hover {
+  color: var(--color-turquoise);
+}
+
+/* -------------------------
+   Scrollbar (detalle “pro”)
+   ------------------------- */
+
+body::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #050511;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--color-primary),
+    var(--color-fuchsia),
+    var(--color-blue)
+  );
+  border-radius: 999px;
+}
+
+/* -------------------------
+   Panel claro para textos largos
+   ------------------------- */
+
+.section-light {
+  background: rgba(176, 94, 230, 0.96); /* fondo claro casi blanco */
+  color: #111321;                        /* texto oscuro */
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+}
+.section-readable {
+  background: rgba(250, 250, 255, 0.96); /* panel claro */
+  color: #111321;
+  padding: 2.5rem 2rem;
+  border-radius: 1.6rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* Texto oscuro adentro del panel */
+.section-readable h1,
+.section-readable h2,
+.section-readable h3,
+.section-readable p,
+.section-readable li {
+  color: #111321 !important;
+}
+
+/* Sobreescribo las cards oscuras dentro del panel claro */
+.section-readable .card-project {
+  background: #ffffff;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+}
+
+.section-readable .card-project .card-title,
+.section-readable .card-project .card-text {
+  color: #111321 !important;
+}
